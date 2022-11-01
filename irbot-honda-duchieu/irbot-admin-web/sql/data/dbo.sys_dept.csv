@@ -1,0 +1,4 @@
+﻿"dept_id","parent_id","ancestors","dept_name","order_num","leader","phone","email","status","del_flag","create_by","create_time","update_by","update_time"
+100,0,"0","Administrator",0,"","0123456789","admin@gmail.com","0","0","admin",2/12/2021 2:06:01 PM,"admin",8/11/2022 11:23:51 AM.830
+200,0,"0","Đức Hiệu 1",1,,,,"0","0","admin",3/12/2021 4:36:09 PM,"",
+210,0,"0","Đức Hiệu 2",2,,,,"0","0","admin",8/15/2022 9:46:13 AM.283,"",

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <th:block th:include="include :: header('Detail Invoice')" />
+  <th:block th:include="include :: datetimepicker-css" />
+  <style th:inline="css">
+    .mb {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body class="white-bg">
+  <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="formDetail" name="formDetail" th:object="${psc}">
+      <div class="row">
+        <div class="col-sm-6 mb">
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Trạng thái:</label>
+            <div class="col-sm-8" th:switch="${psc.status}">
+              <div th:case="1" class="label label-warning" style="vertical-align: bottom">
+                Chờ thực hiện
+              </div>
+              <div th:case="2" class="label label-warning" style="vertical-align: bottom">
+                Đã gửi
+              </div>
+              <div th:case="3" class="label label-success" style="vertical-align: bottom">
+                Đang làm
+              </div>
+              <div th:case="4" class="label label-danger" style="vertical-align: bottom">
+                Thất bại
+              </div>
+              <div th:case="5" class="label label-primary" style="vertical-align: bottom">
+                Thành công
+              </div>
+              <div th:case="*" class="label label-default" style="vertical-align: bottom">
+                Chưa làm
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 mb">
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Cửa hàng:</label>
+            <div class="col-sm-8" th:switch="${psc.unitCode}">
+              <div th:case="200" class="label label-success" style="vertical-align: bottom">
+                Đức Hiệu 1
+              </div>
+              <div th:case="210" class="label label-primary" style="vertical-align: bottom">
+                Đức Hiệu 2
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6 mb">
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Số máy:</label>
+            <div class="col-sm-8">
+              <input class="form-control" type="text" name="vehicleCode" id="vehicleCode" th:field="*{vehicleCode}"
+                disabled />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 mb">
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Biển số xe:</label>
+            <div class="col-sm-8">
+              <input class="form-control" type="text" name="vehicleNumber" id="vehicleNumber"
+                th:field="*{vehicleNumber}" disabled />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6 mb">
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Loại dịch vụ:</label>
+            <div class="col-sm-8">
+              <input class="form-control" type="text" name="repairType" id="repairType" th:field="*{repairType}"
+                disabled />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 mb">
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Km:</label>
+            <div class="col-sm-8">
+              <input class="form-control" type="text" name="km" id="km" th:field="*{km}" disabled />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6 mb">
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Kiểm tra cuối:</label>
+            <div class="col-sm-8">
+              <input class="form-control" type="text" name="finalCheck" id="finalCheck" th:field="*{finalCheck}"
+                disabled />
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 mb">
+          <div class="form-group">
+            <label class="col-sm-4 control-label">NV phụ trách:</label>
+            <div class="col-sm-8">
+              <input class="form-control" type="text" name="technician" id="technician" th:field="*{technician}"
+                disabled />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6 mb">
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Ngày tạo:</label>
+            <div class="col-sm-8">
+              <input class="form-control time-input" type="text" name="createTime" id="createTime"
+                th:value="${#dates.format(psc.createTime, 'dd-MM-yyyy HH:mm:ss')}" disabled />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12" id="chi-tiet-phu-tung"><label class="col-sm-2 control-label"
+            style="font-weight: bold;">Phụ tùng</label></div>
+        <div class="col-sm-12">
+          <table id="bootstrap-table-spare"></table>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-sm-12" id="chi-tiet-cong-viec"><label class="col-sm-2 control-label"
+            style="font-weight: bold;">Công việc</label></div>
+        <div class="col-sm-12">
+          <table id="bootstrap-table-job"></table>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <th:block th:include="include :: footer" />
+  <th:block th:include="include :: datetimepicker-js" />
+  <script type="text/javascript" th:inline="javascript">
+    var psc = /*[[${psc}]]*/;
+    var spareDetails = /*[[${spareDetails}]]*/;
+    var jobDetails = /*[[${jobDetails}]]*/;
+  </script>
+  <script th:src="@{/app/js/business/ktdk-pt/detail.js}"></script>
+</body>
+
+</html>

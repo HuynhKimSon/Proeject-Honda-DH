@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="vn.com.irtech.api.mapper.ImportMapper">
+	<select id="getImportMaster" parameterType="vn.com.irtech.api.dto.request.GetVoucherDataReq"
+	resultType="vn.com.irtech.api.dto.response.VoucherMasterRes">
+		SELECT 
+		    a.ID AS voucher_id
+		    , a.StockImportNumberID AS voucher_no
+		    , 
+		    LEFT ( 
+		        StockImportNumberID
+		        , PATINDEX('%[0-9]%', StockImportNumberID) - 1
+		    ) AS voucher_type
+		    , 
+		    RIGHT (StockImportNumberID, 10) AS voucher_index
+		    , ( 
+		        SELECT
+		            TOP 1 p.ProductGroupID 
+		        FROM
+		            StockImportDetail sid JOIN Product p 
+		                ON sid.ProductID = p.ProductID 
+		        WHERE
+		            sid.StockImportID = a.ID
+		    ) AS product_group
+		    , a.ProviderID AS provider_id
+		    , b.ProviderName AS provider_name
+		    , a.Reason AS reason
+		    , a.Description AS description
+		    , a.StockID AS stock_id
+		    , a.RefDate AS voucher_date
+		    , a.CreateDate AS voucher_modify_date
+		FROM
+		    StockImport a 
+		    LEFT JOIN Provider b 
+		        ON a.ProviderID = b.ProviderID 
+		WHERE
+		  1 = 1
+		  <if test="startDate != null "> AND a.RefDate BETWEEN CONVERT(DATETIME, #{startDate}) AND CONVERT(DATETIME, #{endDate})</if>
+		  <if test="id != null "> AND a.ID = #{id}</if>
+		  <if test="id == null "> AND a.StockImportNumberID NOT LIKE 'NPT%'</if>
+		ORDER BY
+		    a.ID DESC
+	</select>
+
+	<select id="getImportDetails" parameterType="Long"
+	resultType="vn.com.irtech.api.dto.response.VoucherDetailRes">
+		SELECT
+		    ID AS detail_id
+		    , ProductID AS product_id
+		    , ProductName AS product_name
+		    , StockID AS stock_id
+		    , Ak as ak_rate
+		    , UnitID AS unit_id
+		    , Wtp as wtp_rate
+		    , Quantity as convert_quantity
+		    , RealQuantity as real_quantity 
+		FROM
+		    StockImportDetail 
+		WHERE
+		    1 = 1 
+		    AND StockImportID = #{importId}
+	</select>
+</mapper>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <th:block th:include="include :: header('Nhập dữ liệu')" />
+  <style th:inline="css">
+    body {
+      font-size: 13px;
+    }
+
+    label {
+      margin: 6px 0;
+    }
+
+    #labelUpload {
+      padding: 4px;
+      background-color: #1c84c6;
+      border-color: #1c84c6;
+      color: #ffffff;
+      font-family: sans-serif;
+      border-radius: 0.3rem;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    #file-choose {
+      margin-left: 10px;
+      font-family: sans-serif;
+    }
+
+    #errorFile,
+    #errorsText {
+      color: red;
+      font-size: 12px;
+      font-family: sans-serif;
+      font-style: italic;
+    }
+
+    .mb {
+      margin-bottom: 30px;
+    }
+
+    .select-box {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      outline: none;
+      height: 30px;
+      width: 200px;
+    }
+  </style>
+
+</head>
+
+<body class="white-bg">
+  <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="formImport" name="formImport" enctype="multipart/form-data">
+      <div class="row">
+
+        <div class="col-sm-6 mb">
+          <div class="form-group">
+            <label class="col-xs-3 control-label font-bold is-required">Cửa hàng：</label>
+            <div class="col-xs-9">
+              <select name="unitCode" class="select-box">
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 mb">
+          <div class="form-group">
+            <label class="col-xs-3 control-label font-bold is-required">Chọn file：</label>
+            <div class="col-xs-9">
+              <input type="file" id="file" name="file" onchange="handleFileChange()" class="hidden"
+                accept=".xlsx,.xls" />
+              <label for="file" id="labelUpload">Chọn file</label>
+              <span id="file-choose">Chưa chọn file</span>
+              <p id="errorFile"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 mb">
+          <div class="form-group">
+            <label class="col-xs-3 control-label font-bold"></label>
+            <div class="col-xs-9">
+              <a onclick="downloadTemplate()" class="btn btn-default btn-xs"><i class="fa fa-file-excel-o"></i>
+                Tải
+                tệp mẫu</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 mb">
+          <div class="form-group">
+            <label class="col-xs-3 control-label font-bold is-required"> Lỗi file:</label>
+            <div class="col-xs-9" id="errorsText">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+    <th:block th:include="include :: footer" />
+    <script type="text/javascript" th:inline="javascript">
+    var unitCodeImport = /*[[${unitCodeImport}]]*/;
+    $.each(unitCodeImport, function (index, option) {
+      $("select[name=unitCode]").append('<option value="' + index + '">' + option + '</option>')
+    });
+    </script>
+    <script th:src="@{/app/js/business/psc/import.js}"></script>
+</body>
+
+</html>

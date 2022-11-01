@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <th:block th:include="include :: header('Cập nhật trạng thái')" />
+  <style th:inline="css">
+    body {
+      font-size: 13px;
+    }
+
+    label {
+      margin: 6px 0;
+    }
+
+    input[type=radio] {
+      margin: 2px 0 0;
+    }
+
+    .select-box {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      outline: none;
+      height: 30px;
+      width: 200px;
+    }
+  </style>
+</head>
+
+<body class="white-bg">
+  <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="formCommitManual" name="formCommitManual">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label class="col-xs-3 control-label">Trạng thái：</label>
+            <div class="col-xs-9">
+              <select name="status" class="select-box">
+                <option value="0">Chưa làm</option>
+                <option value="5" selected>Thành công</option>
+                <option value="4">Thất bại</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <th:block th:include="include :: footer" />
+  <script type="text/javascript" th:inline="javascript">
+  </script>
+  <script th:src="@{/app/js/business/ktdk/update-status.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+﻿"dict_id","dict_name","dict_type","status","create_by","create_time","update_by","update_time","remark"
+1,"Giới tính","sys_user_sex","0","admin",12/2/2021 2:06:13 PM,"admin",12/3/2021 4:23:06 PM,""
+2,"Trạng thái menu","sys_show_hide","0","admin",12/2/2021 2:06:13 PM,"admin",12/3/2021 4:23:23 PM,""
+3,"Enable/Disable","sys_normal_disable","0","admin",12/2/2021 2:06:13 PM,"admin",12/3/2021 4:24:44 PM,""
+4,"Trạng thái job","sys_job_status","0","admin",12/2/2021 2:06:14 PM,"admin",12/3/2021 5:10:18 PM,""
+5,"Loại job","sys_job_group","0","admin",12/2/2021 2:06:14 PM,"admin",12/3/2021 5:11:32 PM,""
+6,"Yes No","sys_yes_no","0","admin",12/2/2021 2:06:14 PM,"admin",12/3/2021 5:11:58 PM,""
+7,"Loại thông báo","sys_notice_type","0","admin",12/2/2021 2:06:14 PM,"admin",12/3/2021 5:12:53 PM,""
+8,"Trạng thái thông báo","sys_notice_status","0","admin",12/2/2021 2:06:14 PM,"admin",12/3/2021 5:15:09 PM,""
+9,"Loại thao tác","sys_oper_type","0","admin",12/2/2021 2:06:14 PM,"admin",12/3/2021 5:17:01 PM,""
+10,"Trạng thái hệ thống","sys_common_status","0","admin",12/2/2021 2:06:14 PM,"admin",12/3/2021 5:25:05 PM,""
+18,"Danh sách tài khoản HCR Đức Hiệu 1","business_account_hcr_duc_hieu_1","0","admin",8/15/2022 9:19:32 AM.953,"admin",8/15/2022 9:27:28 AM.943,""
+19,"Dánh sách tài khoản HPM Đức Hiệu 1","business_account_hpm_duc_hieu_1","0","admin",8/15/2022 9:20:02 AM.370,"admin",8/15/2022 9:29:45 AM.997,""
+21,"Danh sách tài khoản HCR Đức Hiệu 2","business_account_hcr_duc_hieu_2","0","admin",8/15/2022 9:30:08 AM.360,"",,
+22,"Danh sách tài khoản HPM Đức Hiệu 2","business_account_hpm_duc_hieu_2","0","admin",8/15/2022 9:30:33 AM.387,"",,
+23,"Danh sách đơn vị","business_unit","0","admin",9/9/2022 8:34:44 AM.830,"",,

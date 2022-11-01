@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honda Đức Hiệu</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet" />
+    <link href="../static/css/main/animate.min.css" th:href="@{/css/main/animate.min.css}" rel="stylesheet" />
+    <link href="../static/css/main/style.min862f.css" th:href="@{/css/main/style.min862f.css}" rel="stylesheet" />
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content">
+
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-success pull-right">Đã làm</span>
+                        <h5>Đã đồng bộ</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins" id="totalDone"></h1>
+                        <!-- <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i>
+                        </div> -->
+                        <small>Tổng số danh mục đã đồng bộ</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-info pull-right">Đang làm</span>
+                        <h5>Đang đồng bộ</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins" id="totalDoing"></h1>
+                        <!-- <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
+                        </div> -->
+                        <small>Tổng số danh mục đang đồng bộ</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-primary pull-right">Thành công</span>
+                        <h5>Đồng bộ thành công</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins" id="totalSuccess"></h1>
+                        <!-- <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i>
+                        </div> -->
+                        <small>Số danh mục đồng bộ thành công</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <input type="hidden" id="typeStatistic" value="2">
+                        <span type="button" onclick="exportFileError()" class="label label-primary pull-right"
+                            style="cursor: pointer ;">Xuất
+                            file</span>
+                        <span class="label label-danger pull-right">Thất bại</span>
+                        <h5>Đồng bộ thất bại</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins" id="totalFail"></h1>
+                        <!-- <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i>
+                        </div> -->
+                        <small>Số danh mục đồng bộ thất bại</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Thống kê theo nghiệp vụ</h5>
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-xs btn-white" id="btnDay"
+                                    onclick="statistic(1)">Ngày</button>
+                                <button type="button" class="btn btn-xs btn-white active" id="btnMonth"
+                                    onclick="statistic(2)">Tháng</button>
+                                <button type="button" class="btn btn-xs btn-white" id="btnYear"
+                                    onclick="statistic(3)">Năm</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table table-hover no-margins">
+                            <thead>
+                                <tr>
+                                    <th> Nghiệp vụ </th>
+                                    <th> Đã làm </th>
+                                    <th> Đang làm </th>
+                                    <th> Thành công </th>
+                                    <th> Thất bại </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Kiểm tra định kỳ
+                                    </td>
+                                    <td id="ktdkDone"></td>
+                                    <td class="text-success" id="ktdkDoing"></td>
+                                    <td class="text-navy" id="ktdkSuccess"></td>
+                                    <td class="text-danger" id="ktdkFail"></td>
+                                </tr>
+                                <tr>
+                                    <td>Kiểm tra định kỳ có phụ tùng
+                                    </td>
+                                    <td id="ktdkPtDone"></td>
+                                    <td class="text-success" id="ktdkPtDoing"></td>
+                                    <td class="text-navy" id="ktdkPtSuccess"></td>
+                                    <td class="text-danger" id="ktdkPtFail"></td>
+                                </tr>
+                                <tr>
+                                    <td>Phiếu sửa chữa
+                                    </td>
+                                    <td id="pscDone"></td>
+                                    <td class="text-success" id="pscDoing"></td>
+                                    <td class="text-navy" id="pscSuccess"></td>
+                                    <td class="text-danger" id="pscFail"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+
+        var statisticData = [[${ statisticData }]];
+        var prefix = ctx + "/system/statistic";
+        showData(statisticData);
+
+        function statistic(typeStatistic) {
+            $("#btnDay").removeClass("active");
+            $("#btnMonth").removeClass("active");
+            $("#btnYear").removeClass("active");
+            // statistic by day
+            if (typeStatistic == 1) {
+                $("#btnDay").addClass("active");
+            }
+            // statistic by month
+            if (typeStatistic == 2) {
+                $("#btnMonth").addClass("active");
+            }
+            // statistic by year
+            if (typeStatistic == 3) {
+                $("#btnYear").addClass("active");
+            }
+            $("#typeStatistic").val(typeStatistic);
+            statisticAjax(typeStatistic);
+        }
+
+        function statisticAjax(typeStatistic) {
+            $.ajax({
+                type: "POST",
+                url: prefix + "/" + typeStatistic,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: null,
+                beforeSend: function () {
+                    $.modal.loading("Đang xử lý, vui lòng đợi...");
+                },
+                error: function (request) {
+                    $.modal.closeLoading();
+                    $.modal.alertError("System error!");
+                },
+                success: function (data) {
+                    if (data == null) {
+                        return;
+                    }
+                    if (data.code == 0) {
+                        $.modal.closeLoading();
+                        showData(data.data);
+                    } else {
+                        $.modal.closeLoading();
+                        $.modal.alertError("System error! \r\n " + data.msg);
+                    }
+                },
+            });
+        }
+
+        function showData(paramData) {
+            if (!paramData) {
+                return;
+            }
+
+            $("#totalDone").text(paramData.totalDone);
+            $("#totalDoing").text(paramData.totalDoing);
+            $("#totalSuccess").text(paramData.totalSuccess);
+            $("#totalFail").text(paramData.totalFail);
+
+            $("#ktdkDone").text(paramData.ktdkDone);
+            $("#ktdkDoing").text(paramData.ktdkDoing);
+            $("#ktdkSuccess").text(paramData.ktdkSuccess);
+            $("#ktdkFail").text(paramData.ktdkFail);
+
+            $("#ktdkPtDone").text(paramData.ktdkPtDone);
+            $("#ktdkPtDoing").text(paramData.ktdkPtDoing);
+            $("#ktdkPtSuccess").text(paramData.ktdkPtSuccess);
+            $("#ktdkPtFail").text(paramData.ktdkPtFail);
+
+            $("#pscDone").text(paramData.pscDone);
+            $("#pscDoing").text(paramData.pscDoing);
+            $("#pscSuccess").text(paramData.pscSuccess);
+            $("#pscFail").text(paramData.pscFail);
+        }
+
+        function exportFileError() {
+            let typeStatistic = $("#typeStatistic").val();
+            $.ajax({
+                type: "POST",
+                url: prefix + "/export-error/" + typeStatistic,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: null,
+                beforeSend: function () {
+                    $.modal.loading("Đang xử lý, vui lòng đợi...");
+                },
+                error: function (request) {
+                    $.modal.closeLoading();
+                    $.modal.alertError("System error!");
+                },
+                success: function (data) {
+                    if (data == null) {
+                        return;
+                    }
+                    if (data.code == 0) {
+                        $.modal.closeLoading();
+                        showData(data.data);
+                    } else {
+                        $.modal.closeLoading();
+                        $.modal.alertError("System error! \r\n " + data.msg);
+                    }
+                },
+            });
+        }
+
+    </script>
+</body>
+
+</html>

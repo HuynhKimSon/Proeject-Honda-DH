@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="vn.com.irtech.irbot.business.mapper.KtdkMapper">
+
+	<resultMap type="Ktdk" id="KtdkResult">
+		<result property="id" column="id" />
+		<result property="unitCode" column="unit_code" />
+		<result property="vehicleCode" column="vehicle_code" />
+		<result property="vehicleNumber" column="vehicle_number" />
+		<result property="km" column="km" />
+		<result property="pi" column="pi" />
+		<result property="technician" column="technician" />
+		<result property="finalCheck" column="final_check" />
+		<result property="jobCard" column="job_card" />
+		<result property="step" column="step" />
+		<result property="processId" column="process_id" />
+		<result property="status" column="status" />
+		<result property="createBy" column="create_by" />
+		<result property="createTime" column="create_time" />
+		<result property="updateBy" column="update_by" />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<sql id="selectKtdkVo">
+		select id, unit_code, vehicle_code, vehicle_number, km, pi,
+		technician,
+		final_check, job_card, step, process_id, status, create_by,
+		create_time, update_by, update_time from ktdk
+	</sql>
+
+	<select id="selectKtdkList" parameterType="Ktdk"
+		resultMap="KtdkResult">
+		<include refid="selectKtdkVo" />
+		<where>
+			<if test="unitCode != null "> and unit_code = #{unitCode}</if>
+			<if test="vehicleCode != null  and vehicleCode != ''"> and vehicle_code = #{vehicleCode}</if>
+			<if test="vehicleNumber != null  and vehicleNumber != ''"> and vehicle_number = #{vehicleNumber}</if>
+			<if test="km != null  and km != ''"> and km = #{km}</if>
+			<if test="pi != null "> and pi = #{pi}</if>
+			<if test="technician != null  and technician != ''"> and technician = #{technician}</if>
+			<if test="finalCheck != null  and finalCheck != ''"> and final_check = #{finalCheck}</if>
+			<if test="jobCard != null  and jobCard != ''"> and job_card = #{jobCard}</if>
+			<if test="step != null  and step != ''"> and step = #{step}</if>
+			<if test="processId != null "> and process_id = #{processId}</if>
+			<if test="status != null "> and status = #{status}</if>
+			<if test="params.beginTime != null and params.beginTime != ''">
+				AND convert(varchar, create_time, 23) &gt;=
+				#{params.beginTime}
+			</if>
+			<if test="params.endTime != null and params.endTime != ''">
+				AND convert(varchar, create_time, 23) &lt;=
+				#{params.endTime}
+			</if>
+			<if test="createTime != null">
+				AND convert(varchar, create_time, 23) =
+				convert(varchar, #{createTime}, 23)
+			</if>
+		</where>
+	</select>
+
+	<select id="selectKtdkById" parameterType="Long"
+		resultMap="KtdkResult">
+		<include refid="selectKtdkVo" />
+		where id = #{id}
+	</select>
+
+	<select id="selectKtdkByVehicleCode" parameterType="String"
+		resultMap="KtdkResult">
+		<include refid="selectKtdkVo" />
+		where vehicle_code = #{vehicleCode}
+		ORDER BY create_time DESC
+	</select>
+
+	<insert id="insertKtdk" parameterType="Ktdk"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into ktdk
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="unitCode != null">unit_code,</if>
+			<if test="vehicleCode != null">vehicle_code,</if>
+			<if test="vehicleNumber != null">vehicle_number,</if>
+			<if test="km != null">km,</if>
+			<if test="pi != null">pi,</if>
+			<if test="technician != null">technician,</if>
+			<if test="finalCheck != null">final_check,</if>
+			<if test="jobCard != null">job_card,</if>
+			<if test="step != null">step,</if>
+			<if test="processId != null">process_id,</if>
+			<if test="status != null">status,</if>
+			<if test="createBy != null">create_by,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="updateBy != null">update_by,</if>
+			<if test="updateTime != null">update_time,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="unitCode != null">#{unitCode},</if>
+			<if test="vehicleCode != null">#{vehicleCode},</if>
+			<if test="vehicleNumber != null">#{vehicleNumber},</if>
+			<if test="km != null">#{km},</if>
+			<if test="pi != null">#{pi},</if>
+			<if test="technician != null">#{technician},</if>
+			<if test="finalCheck != null">#{finalCheck},</if>
+			<if test="jobCard != null">#{jobCard},</if>
+			<if test="step != null">#{step},</if>
+			<if test="processId != null">#{processId},</if>
+			<if test="status != null">#{status},</if>
+			<if test="createBy != null">#{createBy},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="updateBy != null">#{updateBy},</if>
+			<if test="updateTime != null">#{updateTime},</if>
+		</trim>
+	</insert>
+
+	<update id="updateKtdk" parameterType="Ktdk">
+		update ktdk
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="unitCode != null">unit_code = #{unitCode},</if>
+			<if test="vehicleCode != null">vehicle_code = #{vehicleCode},</if>
+			<if test="vehicleNumber != null">vehicle_number = #{vehicleNumber},</if>
+			<if test="km != null">km = #{km},</if>
+			<if test="pi != null">pi = #{pi},</if>
+			<if test="technician != null">technician = #{technician},</if>
+			<if test="finalCheck != null">final_check = #{finalCheck},</if>
+			<if test="jobCard != null">job_card = #{jobCard},</if>
+			<if test="step != null">step = #{step},</if>
+			<if test="processId != null">process_id = #{processId},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="createBy != null">create_by = #{createBy},</if>
+			<if test="createTime != null">create_time = #{createTime},</if>
+			<if test="updateBy != null">update_by = #{updateBy},</if>
+			<if test="updateTime != null">update_time = #{updateTime},</if>
+		</trim>
+		where id = #{id}
+	</update>
+
+	<delete id="deleteKtdkById" parameterType="Long">
+		delete from ktdk where
+		id = #{id}
+	</delete>
+
+	<delete id="deleteKtdkByIds" parameterType="String">
+		delete from ktdk where id in
+		<foreach item="id" collection="array" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

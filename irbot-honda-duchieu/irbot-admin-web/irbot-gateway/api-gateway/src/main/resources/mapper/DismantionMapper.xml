@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="vn.com.irtech.api.mapper.DismantionMapper">
+	<select id="getDismantionMaster" parameterType="vn.com.irtech.api.dto.request.GetVoucherDataReq"
+	resultType="vn.com.irtech.api.dto.response.DismantionMasterRes">
+		SELECT
+		    a.ID AS voucher_id
+		    , a.DismantionOrderNumberID AS voucher_no
+		    , 'PT' AS voucher_type
+		    , a.RefDate AS voucher_date
+		    , a.DateCreate AS voucher_modify_date 
+		    , a.StockExportID AS export_id
+		    , se.StockExportNumberID AS export_number_id
+		    , RIGHT (se.StockExportNumberID, 10) AS voucher_index
+		    , a.StockID as stock_id
+		    , a.StockImportID AS import_id 
+		    , si.StockImportNumberID as import_number_id
+		    , a.Description as description
+		FROM
+		    DismantionOrder a JOIN DismantionOderListProduct b ON a.ID = b.DismantionOrderID 
+		    JOIN StockImport si ON a.StockImportID = si.ID 
+		    JOIN StockExport se ON a.StockExportID = se.ID
+		WHERE
+		    1 = 1 
+		    <if test="startDate != null "> AND a.RefDate BETWEEN CONVERT(DATETIME, #{startDate}) AND CONVERT(DATETIME, #{endDate})</if>
+		    <if test="id != null "> AND a.ID = #{id}</if>
+		ORDER BY
+		    a.RefDate DESC
+	</select>
+</mapper>

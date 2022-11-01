@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="vn.com.irtech.irbot.business.mapper.PscDetailMapper">
+    
+  <resultMap type="PscDetail" id="PscDetailResult">
+        <result property="id"    column="id"    />
+        <result property="pscId"    column="psc_id"    />
+        <result property="typeDetail"    column="type_detail"    />
+        <result property="code"    column="code"    />
+        <result property="quantity"    column="quantity"    />
+        <result property="description"    column="description"    />
+        <result property="price"    column="price"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectPscDetailVo">
+        select id, psc_id, type_detail, code, quantity, description, price, create_by, create_time, update_by, update_time from psc_detail
+    </sql>
+
+    <select id="selectPscDetailList" parameterType="PscDetail" resultMap="PscDetailResult">
+        <include refid="selectPscDetailVo"/>
+        <where>  
+            <if test="pscId != null "> and psc_id = #{pscId}</if>
+            <if test="typeDetail != null "> and type_detail = #{typeDetail}</if>
+            <if test="code != null  and code != ''"> and code = #{code}</if>
+            <if test="quantity != null  and quantity != ''"> and quantity = #{quantity}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="price != null  and price != ''"> and price = #{price}</if>
+        </where>
+    </select>
+    
+    <select id="selectPscDetailById" parameterType="Long" resultMap="PscDetailResult">
+        <include refid="selectPscDetailVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertPscDetail" parameterType="PscDetail">
+        insert into psc_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="pscId != null">psc_id,</if>
+            <if test="typeDetail != null">type_detail,</if>
+            <if test="code != null">code,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="description != null">description,</if>
+            <if test="price != null">price,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="pscId != null">#{pscId},</if>
+            <if test="typeDetail != null">#{typeDetail},</if>
+            <if test="code != null">#{code},</if>
+            <if test="quantity != null">#{quantity},</if>
+            <if test="description != null">#{description},</if>
+            <if test="price != null">#{price},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePscDetail" parameterType="PscDetail">
+        update psc_detail
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="pscId != null">psc_id = #{pscId},</if>
+            <if test="typeDetail != null">type_detail = #{typeDetail},</if>
+            <if test="code != null">code = #{code},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePscDetailById" parameterType="Long">
+        delete from psc_detail where id = #{id}
+    </delete>
+    
+     <delete id="deletePscDetailByPscId" parameterType="Long">
+        delete from psc_detail where psc_id = #{id}
+    </delete>
+
+    <delete id="deletePscDetailByIds" parameterType="String">
+        delete from psc_detail where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+    <delete id="deletePscDetailByPscIds" parameterType="String">
+        delete from psc_detail where psc_id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

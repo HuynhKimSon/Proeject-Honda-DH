@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <th:block th:include="include :: header('Gửi lệnh robot')" />
+  <style th:inline="css">
+    body {
+      font-size: 13px;
+    }
+
+    label {
+      margin: 6px 0;
+    }
+
+    input[type=checkbox] {
+      margin: 9px 0 0;
+    }
+
+    .mb {
+      margin-bottom: 35px;
+    }
+
+    .select-box {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      outline: none;
+      height: 30px;
+      width: 200px;
+    }
+  </style>
+</head>
+
+<body class="white-bg">
+  <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="formRetryKtdk" name="formRetryKtdk">
+      <div class="row">
+        <div class="col-sm-6 mb">
+          <div class="form-group">
+            <label class="col-xs-5 control-label is-required">Chọn tài khoản HCR：</label>
+            <div class="col-xs-7">
+              <select name="accountHcr" class="select-box">
+              </select>
+            </div>
+          </div>
+        </div>
+    </form>
+  </div>
+  <th:block th:include="include :: footer" />
+  <script type="text/javascript" th:inline="javascript">
+    var accountHeadHcr = /*[[${accountHeadHcr}]]*/;
+    $.each(accountHeadHcr, function (index, option) {
+      $("select[name=accountHcr]").append('<option value="' + index + '">' + option + '</option>')
+    });
+  </script>
+  <script th:src="@{/app/js/business/ktdk/retry.js}"></script>
+</body>
+
+</html>

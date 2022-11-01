@@ -1,0 +1,4 @@
+﻿"role_id","role_name","role_key","role_sort","data_scope","status","del_flag","create_by","create_time","update_by","update_time","remark"
+1,"Admin","admin",1,"1","0","0","admin",5/9/2022 9:57:33 AM,"",,
+3,"Đức Hiệu 1","duchieu1",2,"1","0","0","admin",7/7/2022 2:18:54 PM,"admin",9/8/2022 3:59:21 PM.170,""
+4,"Đức Hiệu 2","duchieu2",3,"1","0","0","admin",8/15/2022 9:44:04 AM.810,"admin",9/8/2022 3:59:27 PM.640,""
